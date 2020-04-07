@@ -16,8 +16,6 @@ gravity = 1000
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
 
-[node name="platform" type="StaticBody2D" parent="."]
-
 [node name="tilesets" type="Node" parent="."]
 
 [node name="desert" type="TileMap" parent="tilesets"]
