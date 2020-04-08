@@ -1,0 +1,15 @@
+player presses "pray" button
+	-player input goes into pray mode. where buttons act different. Pray_left Pray_right Pray_jmp
+	-partice effects: wazy circle area and bubbles around the circ edge.
+	-
+
+
+
+
+
+
+particles effect: 
+	circle of bubbles
+	subtle wavey shader inside.
+	pleasent gregorian chant.
+	subtle sparkles

@@ -11,6 +11,10 @@ export (int, 0, 5000) var push = 50
 
 var velocity = Vector2.ZERO
 
+#gndSensor:
+onready var rcGndL = $CollisionShape2D/rcGndL
+
+
 # input sample with no accel or friction adjust
 #func get_input():
 #	velocity.x = 0
@@ -19,12 +23,22 @@ var velocity = Vector2.ZERO
 #	if Input.is_action_pressed("ui_left"):
 #		velocity.x -= speed
 
+##the mouse handler.
+#func _input(event):
+#	# Mouse in viewport coordinates
+#	if event is InputEventMouseButton:
+#		print("Mouse Click/Unclick at: ", event.position)
+#	elif event is InputEventMouseMotion:
+#		print("Mouse Motion at: ", event.position)
+## Print the size of the viewport
+#	print("Viewport Resolution is: ", get_viewport_rect().size)
+#	#end mouse handler.
 
 func get_input():
 	var dir = 0 #every input cycle it resets dir to either -1, 0, 1
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("right"):
 		dir += 1
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("left"):
 		dir -= 1
 	if dir != 0:
 		velocity.x = lerp(velocity.x, dir * speed, acceleration)
@@ -32,17 +46,26 @@ func get_input():
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
 	
-	if !dir:
-		print(dir)
+	#player presses button and prayer starts.
+#	if Input.is_action_just_pressed("pray"):
 		
 
+func detectGND():
+	if rcGndL.is_colliding():
+#		print(rcGndL.is_colliding())
+		return true
+	else:
+#		print("no")
+		return false
+
 func _physics_process(delta):
+	var is_grounded = detectGND()
 	get_input()
 	velocity.y += gravity * delta
 	#velocity = move_and_slide(velocity, Vector2.UP)
 	velocity = move_and_slide(velocity, Vector2.UP,
 					 false, 4, PI/4, false)
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("jmp"):
 		if is_on_floor():
 			velocity.y = jump_speed
 			
