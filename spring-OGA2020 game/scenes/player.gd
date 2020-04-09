@@ -1,4 +1,7 @@
+##
+
 extends KinematicBody2D
+
 
 export (int) var speed = 200
 export (int) var jump_speed = -250
@@ -6,13 +9,18 @@ export (int) var gravity = 800
 # input sample with accel or friction adjust
 export (float, 0, 1.0) var friction = 0.1
 export (float, 0, 1.0) var acceleration = 0.25
-# This represents the player's inertia.
+# this is the force  amount it pushes rigid bodies
 export (int, 0, 5000) var push = 50
+# this for double jumps
+#export (int, 0, 3) var MAXJMPS
+const MAXJMPS = 2
 
 var velocity = Vector2.ZERO
 
-#gndSensor:
+#gndSensor vars:
 onready var rcGndL = $CollisionShape2D/rcGndL
+onready var rcGndR = $CollisionShape2D/rcGndR
+
 
 
 # input sample with no accel or friction adjust
@@ -23,7 +31,7 @@ onready var rcGndL = $CollisionShape2D/rcGndL
 #	if Input.is_action_pressed("ui_left"):
 #		velocity.x -= speed
 
-##the mouse handler.
+##the mouse handler sample script. 
 #func _input(event):
 #	# Mouse in viewport coordinates
 #	if event is InputEventMouseButton:
@@ -50,23 +58,29 @@ func get_input():
 #	if Input.is_action_just_pressed("pray"):
 		
 
-func detectGND():
-	if rcGndL.is_colliding():
-#		print(rcGndL.is_colliding())
-		return true
+func detectGND(): 
+	var GNDresult : int = false
+	if rcGndL.is_colliding() or rcGndR.is_colliding():
+		GNDresult = true
 	else:
-#		print("no")
-		return false
+		GNDresult = false
+#	print(GNDresult)
+	return GNDresult
+	
+
+func jmp():
+	velocity.y = jump_speed
 
 func _physics_process(delta):
-	var is_grounded = detectGND()
+	var is_grounded = detectGND() #detect gnd with custom handler
 	get_input()
 	velocity.y += gravity * delta
 	#velocity = move_and_slide(velocity, Vector2.UP)
 	velocity = move_and_slide(velocity, Vector2.UP,
 					 false, 4, PI/4, false)
 	if Input.is_action_just_pressed("jmp"):
-		if is_on_floor():
+		if is_grounded:
+#			jmp(jump_speed)
 			velocity.y = jump_speed
 			
 	# after calling move_and_slide()
