@@ -3,13 +3,58 @@ player presses "pray" button
 	-partice effects: wazy circle area and bubbles around the circ edge.
 	-
 
+on key press pray function():
+	create timer
+	while mode_timer(3 sec):
+		create visuals
+		get mouse position
+		if mouse click:
+			run the prayjmp funcion:
+
+
+prayjmp:
+	get playerPOS
+	get cursorPOS
+	create line 
 
 
 
 
+canJump(bool):
+	result == false
+	if is_touch ground:
+		results == true:
+	else:
+	 	if not test if coyote time is > 0.4:
+			results == true
+		else:
+			results == false
+	return result
 
 particles effect: 
 	circle of bubbles
 	subtle wavey shader inside.
 	pleasent gregorian chant.
 	subtle sparkles
+
+
+###code fragments###
+
+# input sample with no accel or friction adjust
+#func get_input():
+#	velocity.x = 0
+#	if Input.is_action_pressed("ui_right"):
+#		velocity.x += speed
+#	if Input.is_action_pressed("ui_left"):
+#		velocity.x -= speed
+
+##the mouse handler sample script. 
+#func _input(event):
+#	# Mouse in viewport coordinates
+#	if event is InputEventMouseButton:
+#		print("Mouse Click/Unclick at: ", event.position)
+#	elif event is InputEventMouseMotion:
+#		print("Mouse Motion at: ", event.position)
+## Print the size of the viewport
+#	print("Viewport Resolution is: ", get_viewport_rect().size)
+#	#end mouse handler.
