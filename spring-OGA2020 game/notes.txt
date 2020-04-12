@@ -20,7 +20,7 @@ prayjmp:
 
 
 
-canJump(bool):
+func canJump(): 
 	result == false
 	if is_touch ground:
 		results == true:
@@ -58,3 +58,20 @@ particles effect:
 ## Print the size of the viewport
 #	print("Viewport Resolution is: ", get_viewport_rect().size)
 #	#end mouse handler.
+
+#func detectGND(delta): #can Jump Detector
+#	
+#	#this handles all the wall/gnd sensing.
+#	var GNDresult : bool = false #the result
+#	if rcGndL.is_colliding() or rcGndR.is_colliding() or rcWallL.is_colliding() or rcWallR.is_colliding():
+#		GNDresult = true
+#		coyoteCanJump=true
+##		jmp_timer += delta
+#	else:
+#		GNDresult = false
+#		if jmp_timer > coyoteTime:
+#			coyoteCanJump=true
+#		else:
+#			coyoteCanJump=false
+#	return GNDresult
+#

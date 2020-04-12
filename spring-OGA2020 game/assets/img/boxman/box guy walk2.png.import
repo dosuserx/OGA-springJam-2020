@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BFT-ROZY.png-f37dcc91d3596dead8e13e790b677e64.stex"
+path="res://.import/box guy walk2.png-36a129d3567880ad669c8d886454f8a7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/BFT-ROZY.png"
-dest_files=[ "res://.import/BFT-ROZY.png-f37dcc91d3596dead8e13e790b677e64.stex" ]
+source_file="res://assets/img/boxman/box guy walk2.png"
+dest_files=[ "res://.import/box guy walk2.png-36a129d3567880ad669c8d886454f8a7.stex" ]
 
 [params]
 

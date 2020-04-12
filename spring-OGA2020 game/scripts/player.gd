@@ -1,8 +1,9 @@
-##
 
+##
 extends KinematicBody2D
 
 
+#export vars to editor for ease even though i never use the editor
 export (int) var speed = 200
 export (int) var jump_speed = -250
 export (int) var gravity = 400
@@ -20,37 +21,16 @@ var coyoteCanJump : bool
 var jmp_timer : float
 
 #gndSensor vars:
-#gndSensor vars:
-onready var rcGndL = $CollisionShape2D/floorSensor/rcGndL
-onready var rcGndR = $CollisionShape2D/floorSensor/rcGndR
-
-onready var rcWallL = $CollisionShape2D/wallSensor/rcWallL
-onready var rcWallR = $CollisionShape2D/wallSensor/rcWallR
+onready var rcGndL = $CollisionShape2D/rays/rcGndL
+onready var rcGndR = $CollisionShape2D/rays/rcGndR
+onready var rcWallL = $CollisionShape2D/rays/rcWallL
+onready var rcWallR = $CollisionShape2D/rays/rcWallR
 
 #jump timer
 export (float, 0 , 1) var coyoteTime : float
 
 onready var cyTimer = $coyote_timer
 onready var cyCanJump = true
-
-# input sample with no accel or friction adjust
-#func get_input():
-#	velocity.x = 0
-#	if Input.is_action_pressed("ui_right"):
-#		velocity.x += speed
-#	if Input.is_action_pressed("ui_left"):
-#		velocity.x -= speed
-
-##the mouse handler sample script. 
-#func _input(event):
-#	# Mouse in viewport coordinates
-#	if event is InputEventMouseButton:
-#		print("Mouse Click/Unclick at: ", event.position)
-#	elif event is InputEventMouseMotion:
-#		print("Mouse Motion at: ", event.position)
-## Print the size of the viewport
-#	print("Viewport Resolution is: ", get_viewport_rect().size)
-#	#end mouse handler.
 
 func get_input():
 	var dir = 0 #every input cycle it resets dir to either -1, 0, 1
@@ -75,7 +55,7 @@ func get_input():
 		
 		pass
 
-func detectGND(delta): 
+func detectGND(delta): #can Jump Detector
 	#this handles all the wall/gnd sensing.
 	var GNDresult : bool = false #the result
 	
@@ -90,23 +70,22 @@ func detectGND(delta):
 #		else:
 #			results == false
 #	return result
-	
+
+
+
 	if rcGndL.is_colliding() or rcGndR.is_colliding() or rcWallL.is_colliding() or rcWallR.is_colliding():
 		GNDresult = true
 		coyoteCanJump=true
 #		jmp_timer += delta
 	else:
 		GNDresult = false
-		if jmp_timer > coyoteTime:
-			coyoteCanJump=true
-		else:
-			coyoteCanJump=false
-	
-	
-	
-	
+#		if jmp_timer > coyoteTime:
+#			coyoteCanJump=true
+#		else:
+#			coyoteCanJump=false
+
 	return GNDresult
-	
+
 
 func jump():
 	velocity.y = jump_speed
