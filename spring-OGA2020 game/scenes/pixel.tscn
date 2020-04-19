@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="pixel" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1.0
+margin_bottom = 1.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
