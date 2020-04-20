@@ -16,6 +16,11 @@ var dbgCoyotesCanJump = true
 
 var isJumping: bool = false
 
+enum lastDir {LEFT, RIGHT}
+
+enum P_STATE{OFFSCREEN, IDLE, WALKING, JUMPING} #new STATE MACHINE for clean anims.
+
+onready var heartPOS = $PLAYERHEART.position
 
 onready var cytTimer = $cytTimer
 onready var cytJBuffer = $cytJBuffer
@@ -27,6 +32,7 @@ onready var wallRight = $raycasts/wallRight
 
 func get_input():
 	var dir = 0
+	
 	if Input.is_action_pressed("ui_right"):
 		dir += 1
 	if Input.is_action_pressed("ui_left"):
@@ -35,6 +41,7 @@ func get_input():
 		velocity.x = lerp(velocity.x, dir * speed, acceleration)
 		$AniSprite.scale.x = dir
 		#make state machine for this.
+#		heartPOS = 
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
 		
@@ -86,8 +93,8 @@ func _physics_process(delta):
 		dbgStates = $PLAYERHEART.heartColorArray[0][0]
 		prints(dbgStates)
 		
-	
-	prints(cytTimer.time_left)
+#	print(heartPOS)
+#	print(cytTimer.time_left)
 
 
 func _on_cytTimer_timeout():
