@@ -1,7 +1,5 @@
 extends Node2D
 
-var bgPOS = Vector2.ZERO
-
 var velocity = Vector2.ZERO
 
 onready var player = $player2
