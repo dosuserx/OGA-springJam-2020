@@ -20,10 +20,12 @@ enum lastDir {LEFT, RIGHT}
 
 enum P_STATE{OFFSCREEN, IDLE, WALKING, JUMPING} #new STATE MACHINE for clean anims.
 
-onready var heartPOS = $PLAYERHEART.position
+onready var heart = $HEART
 
 onready var cytTimer = $cytTimer
-onready var cytJBuffer = $cytJBuffer
+var dbgAutojump: bool = false
+
+#onready var cytJBuffer = $cytJBuffer
 
 onready var leftLeg = $raycasts/leftLeg
 onready var rightLeg = $raycasts/rightLeg
@@ -40,25 +42,17 @@ func get_input():
 	if dir != 0:
 		velocity.x = lerp(velocity.x, dir * speed, acceleration)
 		$AniSprite.scale.x = dir
-		#make state machine for this.
-#		heartPOS = 
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
-		
-#func resolveMovement(delta):
-#	get_input() #get inputs
-#	applyGrav(delta) #add gravity to velocity
-##	applyMovement() #this calls the move_and_slide
-#	if is_on_floor() :
-#		jump() #
-#		pass
+	
 
 func jump():
 	velocity.y = jump_speed
 	isJumping = true
 
 func applyGrav(delta):
-	velocity.y += gravity * delta #gravity
+	if cytTimer.wait_time > 0.01:
+		velocity.y += gravity * delta #gravity
 	if isJumping && velocity.y >= 0:
 		if is_on_floor():
 			cytTimer.stop()
@@ -66,11 +60,11 @@ func applyGrav(delta):
 			
 
 func applyMovement(delta):
-	var wasOnFloor = is_on_floor()
-	dbgStates = wasOnFloor
+	var wasOnFloor = is_on_floor() #must always be before move_and_slide
+	
 	velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI/4, false)
 	
-	if !is_on_floor() && wasOnFloor && !isJumping:
+	if !is_on_floor() && wasOnFloor && !isJumping: #must be after move_and_slide
 		cytTimer.start()
 	
 	for index in get_slide_count(): # after calling move_and_slide()
@@ -85,17 +79,23 @@ func _input(event):
 			jump()
 
 func _physics_process(delta):
+	dbgAutojump =false
+	
 	get_input()
 	applyGrav(delta)
 	applyMovement(delta)
 	
-	if Input.is_action_just_pressed("pray"):
-		dbgStates = $PLAYERHEART.heartColorArray[0][0]
-		prints(dbgStates)
-		
-#	print(heartPOS)
-#	print(cytTimer.time_left)
+	if Input.is_action_pressed("autoJump"):
+		dbgAutojump = true
+	
+	if cytTimer.time_left > 0.1: print(cytTimer.time_left)
 
 
 func _on_cytTimer_timeout():
-	pass # Replace with function body.
+	if dbgAutojump == true:
+		jump()
+		print("jump")
+	else:
+		print("coyotes can no longer jump")
+		
+
