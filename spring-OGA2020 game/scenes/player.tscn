@@ -58,8 +58,9 @@ position = Vector2( 0, -4 )
 shape = SubResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 position = Vector2( 0, -28 )
-current = true
+process_mode = 0
 smoothing_enabled = true
 smoothing_speed = 10.0
 
