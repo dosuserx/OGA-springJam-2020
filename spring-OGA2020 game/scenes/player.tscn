@@ -69,28 +69,17 @@ wait_time = 0.25
 one_shot = true
 
 [node name="raycasts" type="Node2D" parent="."]
-visible = false
 
 [node name="leftLeg" type="RayCast2D" parent="raycasts"]
-position = Vector2( -2, -5 )
+position = Vector2( -2, -1 )
 enabled = true
-cast_to = Vector2( 0, 7 )
+cast_to = Vector2( 0, 3 )
 collision_mask = 2
 
 [node name="rightLeg" type="RayCast2D" parent="raycasts"]
-position = Vector2( 2, -5 )
+position = Vector2( 2, -1 )
 enabled = true
-cast_to = Vector2( 0, 7 )
-
-[node name="wallLeft" type="RayCast2D" parent="raycasts"]
-position = Vector2( -2, -9 )
-enabled = true
-cast_to = Vector2( -5, 5 )
-
-[node name="wallRight" type="RayCast2D" parent="raycasts"]
-position = Vector2( 2, -9 )
-enabled = true
-cast_to = Vector2( 5, 5 )
+cast_to = Vector2( 0, 3 )
 
 [node name="cytJBuffer" type="Timer" parent="."]
 

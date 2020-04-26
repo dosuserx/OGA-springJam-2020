@@ -1,28 +1,34 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/img/boxman/RobeBot anim run.png" type="Texture" id=1]
-[ext_resource path="res://scenes/menu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/menu.gd" type="Script" id=2]
 [ext_resource path="res://assets/img/bgs6.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 24 )
+[sub_resource type="InputEventAction" id=1]
+action = "jump"
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 24 )
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 24 )
+region = Rect2( 0, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 16, 24 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -64,7 +70,8 @@ __meta__ = {
 [node name="TitleLabel" type="Label" parent="vbContents"]
 margin_right = 168.0
 margin_bottom = 14.0
-text = "Tower Game OGA2020"
+text = "the Tower Jam"
+align = 1
 
 [node name="HBox" type="HBoxContainer" parent="vbContents"]
 margin_top = 23.0
@@ -78,6 +85,7 @@ margin_bottom = 68.0
 [node name="startBtn" type="Button" parent="vbContents/HBox/VBox"]
 margin_right = 49.0
 margin_bottom = 20.0
+shortcut = SubResource( 2 )
 text = "start"
 
 [node name="creditsBtn" type="Button" parent="vbContents/HBox/VBox"]
@@ -96,8 +104,7 @@ text = "quit"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 150, 66 )
-frames = SubResource( 5 )
-frame = 2
+frames = SubResource( 7 )
 playing = true
 [connection signal="pressed" from="vbContents/HBox/VBox/startBtn" to="." method="_on_startBtn_pressed"]
 [connection signal="pressed" from="vbContents/HBox/VBox/quitBtn" to="." method="_on_quitBtn_pressed"]

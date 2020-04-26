@@ -35,9 +35,9 @@ onready var wallRight = $raycasts/wallRight
 func get_input():
 	var dir = 0
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("right"):
 		dir += 1
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("left"):
 		dir -= 1
 	if dir != 0:
 		velocity.x = lerp(velocity.x, dir * speed, acceleration)
@@ -51,7 +51,7 @@ func jump():
 	isJumping = true
 
 func applyGrav(delta):
-	if cytTimer.wait_time > 0.01:
+	if cytTimer.wait_time > 0.01: #
 		velocity.y += gravity * delta #gravity
 	if isJumping && velocity.y >= 0:
 		if is_on_floor():
@@ -73,7 +73,7 @@ func applyMovement(delta):
 			collision.collider.apply_central_impulse(-collision.normal * push)
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("jump"):
 		if is_on_floor() || !cytTimer.is_stopped():
 			cytTimer.stop()
 			jump()
@@ -94,8 +94,8 @@ func _physics_process(delta):
 func _on_cytTimer_timeout():
 	if dbgAutojump == true:
 		jump()
-		print("jump")
-	else:
-		print("coyotes can no longer jump")
+#		print("jump")
+#	else:
+#		print("coyotes can no longer jump")
 		
 
